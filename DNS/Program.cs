@@ -71,7 +71,8 @@ namespace DNS
                 WriteLine();
                 ResetColor();
 
-                dns.Requested += (request => WriteLine("[DNS]    Linked Client succesfull at " + DateTime.UtcNow));
+                dns.Requested += (request => WriteLine("[DNS]    Linked Client successful at " + DateTime.UtcNow));
+                dns.Responded += ((request, response) => WriteLine("[DNS]    Client connected using " + request.Questions[0].Name));
                 dns.Responded += ((request, response) => Write(""));
                 dns.Listen(port);
             }
