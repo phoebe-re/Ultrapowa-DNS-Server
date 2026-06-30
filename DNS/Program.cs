@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using static System.Console;
 using DNS.Server;
@@ -49,14 +49,16 @@ namespace DNS
             try
             {
                 var port = 53;
-                var ip = Convert.ToString(Dns.GetHostEntry(Dns.GetHostName()).AddressList[0]);
+                var ip = Convert.ToString(Dns.GetHostEntry(Dns.GetHostName()).AddressList[0]); // Use this if you're connecting to the DNS server using the same device as the device that is using the DNS server.
+                //var ip = "192.168.1.108"; // You should  really use this, if you're hosting this DNS server online or using this for another device.
                 var dns = new DnsServer("8.8.8.8", port);
 
                 dns.MasterFile.AddIPAddressResourceRecord("gamea.clashofclans.com", ip);
                 dns.MasterFile.AddIPAddressResourceRecord("game.clashofclans.com", ip);
                 dns.MasterFile.AddIPAddressResourceRecord("game.clashroyaleapp.com", ip);
                 dns.MasterFile.AddIPAddressResourceRecord("game.boombeachgame.com", ip);
-                dns.MasterFile.AddIPAddressResourceRecord("game.haydaygame.com", ip); 
+                dns.MasterFile.AddIPAddressResourceRecord("game.haydaygame.com", ip);
+                dns.MasterFile.AddIPAddressResourceRecord("game.brawlstarsgame.com", ip);
 
                 WriteLine();
                 WriteLine("[DNS]    DNS Server started on " + ip + " at " + port);
@@ -67,11 +69,12 @@ namespace DNS
                 WriteLine("[DNS]    - Clash of Clans (IOS / Android)");
                 WriteLine("[DNS]    - Hay Day (IOS / Android)");
                 WriteLine("[DNS]    - Boom Beach (IOS / Android)");
-                WriteLine("[DNS]    All Clients will be linked to " + ip);
+                WriteLine("[DNS]    - Brawl Stars (IOS / Android)");
+                WriteLine("[DNS]    All clients will be linked to " + ip);
                 WriteLine();
                 ResetColor();
 
-                dns.Requested += (request => WriteLine("[DNS]    Linked client successful at " + DateTime.UtcNow));
+                dns.Responded += ((request, response) => WriteLine("[DNS]    Linked client successful using " + request.Questions[0].Name + " at " + DateTime.UtcNow));
                 dns.Responded += ((request, response) => Write(""));
                 dns.Listen(port);
             }
