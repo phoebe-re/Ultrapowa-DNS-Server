@@ -36,10 +36,6 @@
     <ApplicationIcon>ucs.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DNS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\UCS 0.6.3.1\dns\DNS.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +48,11 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\DnsResponse.cs" />
+    <Compile Include="Server\DnsQuestion.cs" />
+    <Compile Include="Server\DnsRequest.cs" />
+    <Compile Include="Server\MasterFile.cs" />
+    <Compile Include="Server\DnsServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

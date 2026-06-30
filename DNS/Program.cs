@@ -40,6 +40,8 @@ namespace DNS
             WriteLine("[DNS]    -> DNS Server is now starting...");
 
             Start();
+
+            ReadLine(); // keep alive
         }
 
         public static bool Start()
@@ -47,7 +49,7 @@ namespace DNS
             try
             {
                 var port = 53;
-                var ip = Convert.ToString(Dns.GetHostByName(Dns.GetHostName()).AddressList[0]);
+                var ip = Convert.ToString(Dns.GetHostEntry(Dns.GetHostName()).AddressList[0]);
                 var dns = new DnsServer("8.8.8.8", port);
 
                 dns.MasterFile.AddIPAddressResourceRecord("gamea.clashofclans.com", ip);
